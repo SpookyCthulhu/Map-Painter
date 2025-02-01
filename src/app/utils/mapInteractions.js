@@ -17,7 +17,7 @@ export function setupMapInteractions() {
     const cityOutput = document.querySelector(".city");
     const areaOutput = document.querySelector(".area");    
     const currencyOutput = document.querySelector(".currency");
-    const languageOutput = document.querySelector(".languages");
+    const languagesOutput = document.querySelector(".languages");
 
     countries.forEach(country => {
         country.addEventListener("mouseenter", function() {
@@ -37,7 +37,7 @@ export function setupMapInteractions() {
         const classList = [...this.classList].join(".");
         const selector = '.' + classList;
         const matchingElements = document.querySelectorAll(selector);
-        matchingElements.forEach(el => el.style.fill = "443d4b");
+        matchingElements.forEach(el => el.style.fill = "#443d4b");
         });
         // Add click event to each country
         country.addEventListener("click", function(e) {
@@ -102,6 +102,41 @@ export function setupMapInteractions() {
             });
         });
 
+        closeBtn.addEventListener("click", () => {
+            sidePanel.classList.remove("side-panel-open");
+        });
+
+        let zoomValue = 100;
+
+        function updateZoom() {
+          // Update the map dimensions and output
+          map.style.width = zoomValue + "vw";
+          map.style.height = zoomValue + "vh";
+          zoomValueOutput.innerText = zoomValue + "%";
+        
+          // Disable/enable buttons based on the current zoomValue
+          zoomInBtn.disabled = (zoomValue >= 500);
+          zoomOutBtn.disabled = (zoomValue <= 100);
+        }
+        
+        // Initialize the zoom
+        updateZoom();
+        
+        zoomInBtn.addEventListener("click", () => {
+          if (zoomValue < 500) { // Only zoom in if below 500
+            zoomValue += 100;
+            updateZoom();
+          }
+        });
+        
+        zoomOutBtn.addEventListener("click", () => {
+          if (zoomValue > 100) { // Only zoom out if above 100
+            zoomValue -= 100;
+            updateZoom();
+          }
+        });
+        
+ 
     
     
     // Add more interactions...
