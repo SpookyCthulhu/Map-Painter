@@ -65,7 +65,40 @@ svg {
 path {
   fill: #443d4b;
   stroke: #dcbfff;
+  stroke-width: 1px;
   transition: 100ms;
+}
+
+.Ukraine {
+  fill: #f3063d;
+}
+
+.Russian_Federation {
+  fill: #f3063d;
+}
+
+.Estonia {
+  fill: #f3063d;
+}
+
+.Latvia {
+  fill: #f3063d;
+}
+
+.Lithuania {
+  fill: #f3063d;
+}
+
+.Belarus {
+  fill: #f3063d;
+}
+
+.Mongolia {
+  fill: #f3063d;
+}
+
+.Kazakhstan {
+  fill: #f3063d;
 }
 
 path:hover {
