@@ -64,8 +64,9 @@ svg {
 
 path {
   fill: #443d4b;
-  stroke: #dcbfff;
-  stroke-width: 1px;
+  stroke: #151218;
+  opacity: 0.8;
+  stroke-width: 0px;
   transition: 100ms;
 }
 
@@ -99,10 +100,6 @@ path {
 
 .Kazakhstan {
   fill: #f3063d;
-}
-
-path:hover {
-  fill: #c99aff;
 }
 
 .side-panel {

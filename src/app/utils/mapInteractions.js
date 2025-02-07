@@ -20,24 +20,32 @@ export function setupMapInteractions() {
     const languagesOutput = document.querySelector(".languages");
 
     countries.forEach(country => {
-        country.addEventListener("mouseenter", function() {
-            const classList = [...this.classList].join(".");
-            console.log(classList);
-            // Create a selector for matching classes
-            const selector = '.' + classList;
-            // Select all matching elments
-            // Select all piecers of land (svg paths) that
-            // belong to the same country
-            const matchingElements = document.querySelectorAll(selector);
-            // Add hover effect to matching elements
-            matchingElements.forEach(el => el.style.fill = "#c99aff");
+        // Generate escaped class selector for the country
+        const classes = [...country.classList].map(c => CSS.escape(c)).join('.');
+        const selector = `.${classes}`;
+        
+        // Generate ONE random color per country
+        const randomColor = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+        
+        // Apply color to all matching elements
+        document.querySelectorAll(selector).forEach(el => {
+            el.style.fill = randomColor;
         });
+
+        // Event listener (already working, but added escaping for consistency)
+        country.addEventListener("mouseenter", function() {
+            const classes = [...this.classList].map(c => CSS.escape(c)).join('.');
+            const selector = `.${classes}`;
+            const matchingElements = document.querySelectorAll(selector);
+            matchingElements.forEach(el => el.style.opacity = 1);
+        });
+        
         // mouse out event
         country.addEventListener("mouseout", function() {
         const classList = [...this.classList].join(".");
         const selector = '.' + classList;
         const matchingElements = document.querySelectorAll(selector);
-        matchingElements.forEach(el => el.style.fill = "#443d4b");
+        matchingElements.forEach(el => el.style.opacity = 0.8);
         });
         // Add click event to each country
         country.addEventListener("click", function(e) {
