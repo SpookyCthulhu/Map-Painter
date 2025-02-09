@@ -39,7 +39,7 @@ export function setupMapInteractions() {
             const matchingElements = document.querySelectorAll(selector);
             matchingElements.forEach(el => el.style.opacity = 1);
         });
-        
+
         // mouse out event
         country.addEventListener("mouseout", function() {
         const classList = [...this.classList].join(".");
@@ -113,39 +113,6 @@ export function setupMapInteractions() {
         closeBtn.addEventListener("click", () => {
             sidePanel.classList.remove("side-panel-open");
         });
-
-        let zoomValue = 100;
-
-        function updateZoom() {
-          // Update the map dimensions and output
-          map.style.width = zoomValue + "vw";
-          map.style.height = zoomValue + "vh";
-          zoomValueOutput.innerText = zoomValue + "%";
-        
-          // Disable/enable buttons based on the current zoomValue
-          zoomInBtn.disabled = (zoomValue >= 500);
-          zoomOutBtn.disabled = (zoomValue <= 100);
-        }
-        
-        // Initialize the zoom
-        updateZoom();
-        
-        zoomInBtn.addEventListener("click", () => {
-          if (zoomValue < 500) { // Only zoom in if below 500
-            zoomValue += 100;
-            updateZoom();
-          }
-        });
-        
-        zoomOutBtn.addEventListener("click", () => {
-          if (zoomValue > 100) { // Only zoom out if above 100
-            zoomValue -= 100;
-            updateZoom();
-          }
-        });
-        
- 
-    
     
     // Add more interactions...
     }

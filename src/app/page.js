@@ -1,16 +1,30 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setupMapInteractions } from "./utils/mapInteractions"; // Adjust path if needed
+import { MapZoom } from "./utils/MapZoom"; 
 import Image from "next/image";
 import Map from "./components/Map.js";
+import MapViewer from "./components/MapViewer.js";
+import ColorPicker from "./components/ColorPicker.js";
 
 export default function Home() {
   useEffect(() => {
     setupMapInteractions(); // Call the function when component mounts
+    MapZoom();
   }, []);
+
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
+
   return (
     <>
+    <MapViewer>
     <Map></Map>
+    </MapViewer>
+    <ColorPicker setColor={setColor}></ColorPicker>
     <div className="side-panel">
       <div className='container'>
         <h1 className="country-name">Germany</h1>
@@ -39,12 +53,7 @@ export default function Home() {
       </button>
       <h2 className="loading">Loading...</h2>
     </div>
-
-    <div className="zoom-controls">
-      <button className="zoom-in">+</button>
-      <button className="zoom-out">-</button>
-      <p className="zoom-value">100%</p>
-    </div>
+    
     </>
   );
 }
