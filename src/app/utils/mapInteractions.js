@@ -2,8 +2,8 @@ export function setupMapInteractions() {
     if (typeof document === "undefined") return; // Ensure it runs only on client side
   
     // Selecting elements
-    const map = document.querySelector("svg");
-    const countries = document.querySelectorAll("path");
+    const map = document.querySelector(".Map");
+    const countries = document.querySelectorAll(".Country");
     const sidePanel = document.querySelector(".side-panel");
     const container = document.querySelector(".side-panel .container");
     const closeBtn = document.querySelector(".close-btn");
@@ -22,7 +22,7 @@ export function setupMapInteractions() {
     countries.forEach(country => {
         // Generate escaped class selector for the country
         const classes = [...country.classList].map(c => CSS.escape(c)).join('.');
-        const selector = `.${classes}`;
+        const selector = `${classes}`;
         
         // Generate ONE random color per country
         const randomColor = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
