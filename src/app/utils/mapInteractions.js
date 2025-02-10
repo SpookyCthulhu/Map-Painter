@@ -2,15 +2,11 @@ export function setupMapInteractions() {
     if (typeof document === "undefined") return; // Ensure it runs only on client side
   
     // Selecting elements
-    const map = document.querySelector(".Map");
     const countries = document.querySelectorAll(".Country");
     const sidePanel = document.querySelector(".side-panel");
     const container = document.querySelector(".side-panel .container");
     const closeBtn = document.querySelector(".close-btn");
     const loading = document.querySelector(".loading");
-    const zoomInBtn = document.querySelector(".zoom-in");
-    const zoomOutBtn = document.querySelector(".zoom-out");
-    const zoomValueOutput = document.querySelector(".zoom-value");
     // data ouputs
     const countryNameOutput = document.querySelector(".country-name");
     const countryFlagOutput = document.querySelector(".country-flag");

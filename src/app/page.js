@@ -1,57 +1,60 @@
 "use client";
-import { useEffect, useState } from "react";
-import { setupMapInteractions } from "./utils/mapInteractions"; // Adjust path if needed
-import Image from "next/image";
-import Map from "./components/Map.js";
-import MapViewer from "./components/MapViewer.js";
-import ColorPicker from "./components/ColorPicker.js";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import Map from "./components/Map";
+import MapViewer from "./components/MapViewer";
+import Sidebar from "./components/Sidebar";
+import ColorPicker from "./components/ColorPicker";
 
-export default function Home() {
-  useEffect(() => {
-    setupMapInteractions(); // Call the function when component mounts
-  }, []);
-
+const Home = () => {
   const [selectedColor, setSelectedColor] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [countryData, setCountryData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(selectedColor);
-  }, [selectedColor]);
+  const handleCountryClick = async (countryName) => {
+
+    let paths = document.getElementsByClassName(countryName.replace(/\s/g, "_"));
+    console.log(paths)
+
+    if (selectedColor) {
+      [...paths].forEach(path => {path.style.fill = selectedColor;});
+    }
+
+    try {
+      setLoading(true);
+      setSidebarOpen(true);
+      
+      const response = await fetch(
+        `https://restcountries.com/v3.1/name/${countryName}?fullText=true`
+      );
+      
+      if (!response.ok) throw new Error("Country not found");
+      
+      const data = await response.json();
+      setCountryData(data[0]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setCountryData({ error: "No data available" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-    <MapViewer>
-    <Map></Map>
-    </MapViewer>
-    <ColorPicker setColor={setSelectedColor}></ColorPicker>
-    <div className="side-panel">
-      <div className='container'>
-        <h1 className="country-name">Germany</h1>
-        <img src=".flag.png" className="country-flag"/>
-        <ul>
-          <li>
-            <strong>Capital City:</strong>
-            <span className="city"></span>
-          </li>
-          <li>
-            <strong>Area:</strong>
-            <span className='area'></span>
-          </li>
-          <li>
-            <strong>Currencies:</strong>
-            <ul className="currency"></ul>
-          </li>
-          <li>
-            <strong>Languages:</strong>
-            <ul className="languages"></ul>
-          </li>
-        </ul>
-      </div>
-      <button className="close-btn">
-        <i className="fas fa-times"></i>
-      </button>
-      <h2 className="loading">Loading...</h2>
+    <div className="relative w-full h-screen">
+      <MapViewer>
+        <Map onCountryClick={handleCountryClick} />
+      </MapViewer>
+      <ColorPicker setColor={setSelectedColor} />
+      <Sidebar
+        isOpen={sidebarOpen}
+        countryData={countryData}
+        onClose={() => setSidebarOpen(false)}
+      />
     </div>
-    
-    </>
   );
-}
+};
+
+export default Home;
