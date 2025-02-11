@@ -10,7 +10,7 @@ const Sidebar = ({ isOpen, countryData, onClose }) => {
     <div className="fixed top-0 left-0 h-full w-80 bg-black shadow-lg p-4 transform transition-transform duration-300 ease-in-out translate-x-0">
       <button 
         onClick={onClose}
-        className="absolute bg-blue-800 top-0 right-0 size-[4rem] hover:bg-blue-600"
+        className="absolute bg-gray-500 top-0 right-0 size-[4rem] hover:bg-blue-600"
       >
         <i className="fas fa-times"></i>
       </button>

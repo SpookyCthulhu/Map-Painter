@@ -5,6 +5,7 @@ import Map from "./components/Map";
 import MapViewer from "./components/MapViewer";
 import Sidebar from "./components/Sidebar";
 import ColorPicker from "./components/ColorPicker";
+import SettingsMenu from "./components/SettingsMenu";
 
 const Home = () => {
   const [selectedColor, setSelectedColor] = useState("");
@@ -53,6 +54,7 @@ const Home = () => {
         countryData={countryData}
         onClose={() => setSidebarOpen(false)}
       />
+      <SettingsMenu></SettingsMenu>
     </div>
   );
 };
